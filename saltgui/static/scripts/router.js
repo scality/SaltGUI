@@ -1,7 +1,11 @@
 class Router {
 
   constructor() {
-    this.api = new API();
+    this.api = new API(
+      window.SALTGUI_CONFIG
+        ? window.SALTGUI_CONFIG.API_URL
+        : undefined
+    );
     this.commandbox = new CommandBox(this.api);
     this.currentRoute = undefined;
     this.routes = [];
