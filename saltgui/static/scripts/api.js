@@ -8,8 +8,12 @@ class HTTPError extends Error {
 
 
 class API {
-  constructor(apiurl="") {
+  constructor(apiurl="", options={}) {
     this.APIURL = apiurl;
+    this.enableCacheControl =
+        typeof options.enableCacheControl === "undefined"
+          ? true
+          : options.enableCacheControl;
   }
 
   isAuthenticated() {
@@ -154,8 +158,12 @@ class API {
     const headers = {
       "Accept": "application/json",
       "X-Auth-Token": token !== null ? token : "",
-      "Cache-Control": "no-cache"
     };
+
+    if(this.enableCacheControl) {
+      headers["Cache-Control"] = "no-cache";
+    }
+
     const options = {
       method: method,
       url: location,

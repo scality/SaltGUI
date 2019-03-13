@@ -4,7 +4,12 @@ class Router {
     this.api = new API(
       window.SALTGUI_CONFIG
         ? window.SALTGUI_CONFIG.API_URL
-        : undefined
+        : undefined,
+      {
+        enableCacheControl: window.SALTGUI_CONFIG
+          ? window.SALTGUI_CONFIG.enableCacheControl
+          : undefined,
+      }
     );
     this.commandbox = new CommandBox(this.api);
     this.currentRoute = undefined;
